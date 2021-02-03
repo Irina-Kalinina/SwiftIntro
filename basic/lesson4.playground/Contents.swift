@@ -32,6 +32,7 @@ class Car{
     let maxSpeed: Double
     var engineState: CarActions
     var windowsState: CarActions
+    static var carReleased: UInt = 0 // кол-во выпущенных машин
     
     // метод
     func action(type: CarActions){
@@ -58,25 +59,34 @@ class Car{
         self.maxSpeed = 200
         self.engineState = .stallEngine
         self.windowsState = .closeWindows
+        Car.carReleased += 1
+    }
+    
+    deinit {
+        Car.carReleased -= 1
     }
     
     // значения свойств экземпляров
-    func CarInfo(){
+    func carInfo(){
         print("\nИнформация о машине:")
         print("Модель: \(model)")
         print("Год выпуска: \(yearMade)")
         print("Максимальная скорость: \(maxSpeed)")
     }
+    
+    static func printReport(){
+        print("Всего создано машин: \(carReleased)")
+    }
 }
 
 
 var car1 = Car(model: .audi, yearMade: 2008)
-car1.CarInfo()
+car1.carInfo()
 car1.action(type: .startEngine)
 car1.action(type: .openWindows)
 print("----------------------")
 var car2 = Car(model: .BMW, yearMade: 2021)
-car2.CarInfo()
+car2.carInfo()
 car2.action(type: .startEngine)
 print("----------------------")
 
