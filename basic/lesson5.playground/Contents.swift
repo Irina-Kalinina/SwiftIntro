@@ -151,13 +151,19 @@ class SportCar: Car{
     
 }
 
+// меняем description у CustomStringConvertible
+// собирает все св-а класса и выводит их значения
 extension SportCar: CustomStringConvertible {
     var description: String{
-        if haveTrunk {
-            return "У машины есть багажник, чтобы его открыть вызовите метод .changeTrunkState"
-        } else {
-            return "У машины нет багажника"
+        var description = "\n------- \(type(of: self)) -------\n"
+        let selfMirror = Mirror(reflecting: self)
+        for child in selfMirror.children {
+            if let propertyName = child.label {
+                description += "\(propertyName): \(child.value)\n"
+            }
         }
+        description += "------------------------\n"
+        return description
     }
 }
 
