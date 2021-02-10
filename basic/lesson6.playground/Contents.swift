@@ -89,7 +89,7 @@ queueToTest.printQueue()
 
 
 //сортировка
-let sortedByTwo = queueToTest.sortByValue( { $0.side % 2 == 0) } )
+let sortedByTwo = queueToTest.sortByValue( { $0.side % 2 == 0 } )
 let ascendingOrder = queueToTest.sortByOrder( {$0.side < $1.side } )
 print(ascendingOrder.map({"\($0.side)"}))
 
